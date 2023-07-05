@@ -46,7 +46,10 @@ const myLogin = () => {
       <div className="row">
         <div className="col"></div>
         <div className="col">
-          <img src="assets/lb.jpg" alt="" />
+          {/* Øverste for deploy, nederste for dev pga filstruktur ;) */}
+          {/* src="assets/lb.jpg" */}
+          {/* src="src/assets/lb.jpg" */}
+          <img src="src/assets/lb.jpg" alt="" />
           Den offisielle ølstraff siden åsånn
         </div>
         <div className="col"></div>

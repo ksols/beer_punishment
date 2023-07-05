@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Root from "./components/Root";
 import MyLogin from "./pages/login";
 import Straffer from "./pages/straffer";
+import Logg from "./pages/test_logg";
 import {
   RouterProvider,
   BrowserRouter,
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <MyLogin /> },
       { path: "/straffer", element: <Straffer /> },
+      { path: "/logg", element: <Logg /> },
     ],
   },
 ]);

@@ -58,3 +58,15 @@ export async function modyfiDB(key, value) {
   }
   return null;
 }
+
+export async function getLog() {
+  let log_url =
+    "https://eu-central-1.aws.data.mongodb-api.com/app/application-0-ilufl/endpoint/log";
+  let log_data = await fetch(log_url)
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => console.error(error));
+  return log_data;
+}

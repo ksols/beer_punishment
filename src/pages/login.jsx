@@ -3,6 +3,7 @@ import variables from "../variables.json";
 import jwtDecode from "jwt-decode";
 import { atom, useAtom } from "jotai";
 import { userAtom } from "./atom";
+import lbImg from "../assets/lb.jpg";
 
 const myLogin = () => {
   const [user, setUser] = useAtom(userAtom);
@@ -46,10 +47,8 @@ const myLogin = () => {
       <div className="row">
         <div className="col"></div>
         <div className="col">
-          {/* Øverste for deploy, nederste for dev pga filstruktur ;) */}
-          {/* src="assets/lb.jpg" */}
-          {/* src="src/assets/lb.jpg" */}
-          <img src="src/assets/lb.jpg" alt="" />
+          {/* <img src="assets/lb.jpg" alt="" /> */}
+          <img src={lbImg} alt="" />
           Den offisielle ølstraff siden åsånn
         </div>
         <div className="col"></div>

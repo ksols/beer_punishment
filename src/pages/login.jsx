@@ -46,7 +46,8 @@ const myLogin = () => {
       <div className="row">
         <div className="col"></div>
         <div className="col">
-          <img src="assets/lb.jpg" alt="" />
+          {/* <img src="assets/lb.jpg" alt="" /> */}
+          <img src="../assets/lb.jpg" alt="" />
           Den offisielle ølstraff siden åsånn
         </div>
         <div className="col"></div>

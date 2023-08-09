@@ -3,12 +3,27 @@ import { atom, useAtom } from "jotai";
 import { userAtom } from "./atom";
 import get from "../../api";
 import { modyfiDB, get_auth } from "../../api";
+import { BarList, Card, Title, Bold, Flex, Text } from "@tremor/react";
 const Straffer = () => {
   const [user, setUser] = useAtom(userAtom);
   let myDict = {};
-  let authDictEmails = {};
+  let tempDataVarElns = [];
   const [authEmails, SetAuthEmails] = useState([]);
+  const [data, setData] = useState([]);
 
+  async function createData() {
+    myDict = await get();
+    const entries = Object.entries(myDict);
+    entries.sort((a, b) => b[1] - a[1]);
+
+    tempDataVarElns = [];
+    for (const e of entries) {
+      tempDataVarElns.push({ name: e[0], value: e[1] });
+    }
+    setData([]);
+    // Populating the actual BarList
+    setData(tempDataVarElns);
+  }
   useEffect(() => {
     const fetchAuthEmails = async () => {
       // Fetch authEmails asynchronously
@@ -17,81 +32,9 @@ const Straffer = () => {
       SetAuthEmails(Object.values(response));
     };
     fetchAuthEmails();
+    createData();
   }, []);
 
-  async function createData() {
-    myDict = await get();
-    const entries = Object.entries(myDict);
-    entries.sort((a, b) => b[1] - a[1]);
-    const sortedDict = Object.fromEntries(entries);
-
-    const newCategories = Object.keys(sortedDict);
-
-    const newValues = Object.values(sortedDict);
-
-    $(document).ready(function () {
-      Highcharts.chart("container", {
-        chart: {
-          type: "bar",
-        },
-        title: {
-          text: "LaBamba ølstraffer",
-          align: "left",
-        },
-        xAxis: {
-          categories: newCategories,
-          title: {
-            text: null,
-          },
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: "Ølstraffer (antall)",
-            align: "high",
-          },
-          labels: {
-            overflow: "justify",
-          },
-        },
-        tooltip: {
-          valueSuffix: " Ølstraffer",
-        },
-        plotOptions: {
-          bar: {
-            dataLabels: {
-              enabled: true,
-            },
-          },
-        },
-        legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "top",
-          x: -40,
-          y: 80,
-          floating: true,
-          borderWidth: 1,
-          backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFF",
-          shadow: true,
-        },
-        credits: {
-          enabled: false,
-        },
-        colors: ["#FFC5E4"],
-        series: [
-          {
-            name:
-              "Totalt: " + newValues.reduce((a, b) => a + b, 0) + " ølstraffer",
-            data: newValues,
-          },
-        ],
-      });
-      // Create the chart
-    });
-  }
-  createData();
   function handleForm(event) {
     event.preventDefault();
     let form = event.target;
@@ -100,6 +43,7 @@ const Straffer = () => {
     modyfiDB(navn, Number(straffer));
     createData();
   }
+  console.log("data: ", JSON.stringify(data));
   return (
     <div>
       <div>
@@ -108,9 +52,25 @@ const Straffer = () => {
             ? "Hallais " + user.given_name
             : "Uten login med tilgang får du se, men ikke røre"}
         </div>
-        <figure className="highcharts-figure">
+        {/* <figure className="highcharts-figure">
           <div id="container"></div>
-        </figure>
+        </figure> */}
+        <Card className="max-w bg-emphasis">
+          <Title>Website Analytics</Title>
+          <Flex className="mt-4">
+            <Text>
+              <Bold>Source</Bold>
+            </Text>
+            <Text>
+              <Bold>Visits</Bold>
+            </Text>
+          </Flex>
+          <BarList
+            data={data}
+            className="mt-2"
+            barClassName="bg-orange-500 border border-solid border-tremor-brand-emphasis"
+          />
+        </Card>
       </div>
       {authEmails.includes(user.email) && (
         <form onSubmit={(e) => handleForm(e)}>

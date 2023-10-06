@@ -4,6 +4,7 @@ import { getLog } from "../../api";
 function List() {
   const [editIndex, setEditIndex] = useState(-1);
   const [editValue, setEditValue] = useState("");
+  const [log_liste, setLog_liste] = useState([]);
   const [items, setItems] = useState([
     "item1",
     "item2",
@@ -20,18 +21,21 @@ function List() {
         return d;
       }
       let logData = await createLogList();
-      for (let x of logData) {
-        console.log("Data: ", JSON.stringify(x));
-        let comment =
-          "" +
-          Object.keys(x)[1] +
-          " " +
-          "+" +
-          Object.values(x)[1] +
-          " for " +
-          Object.values(x)[2].toLowerCase();
-        console.log("Comment: ", comment);
+      let parset_log_liste = [];
+      for (let x of Object.keys(logData[0])) {
+        if (x != "_id") {
+          let comment =
+            "" +
+            x +
+            " " +
+            " + " +
+            logData[0][x]["number"] +
+            " for " +
+            logData[0][x]["comment"].toLowerCase();
+          parset_log_liste.push(comment);
+        }
       }
+      setLog_liste(parset_log_liste);
     }
     nested();
   }, []);
@@ -47,6 +51,7 @@ function List() {
     setItems(newItems);
   };
   const handleEditChange = (event) => {
+    console.log();
     setEditValue(event.target.value);
   };
 
@@ -54,7 +59,7 @@ function List() {
     event.preventDefault();
     handleEdit(editIndex, editValue);
     setEditIndex(-1);
-    setEditValue("");
+    setEditValue(editValue);
   };
 
   const handleDeleteClick = (index) => {
@@ -71,12 +76,12 @@ function List() {
       <thead>
         <tr>
           <th>#</th>
-          <th>Item</th>
-          <th>Actions</th>
+          <th>Straffe Logg</th>
+          <th>Endre</th>
         </tr>
       </thead>
       <tbody>
-        {items.map((item, index) => (
+        {log_liste.map((item, index) => (
           <tr key={index}>
             <td>{index + 1}</td>
             <td>

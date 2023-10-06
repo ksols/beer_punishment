@@ -70,3 +70,28 @@ export async function getLog() {
     .catch((error) => console.error(error));
   return log_data;
 }
+
+export async function changeLog() {
+  // TODO: Sette inn endring av kommentarer.
+  // Skal man endre antallet må man slette også legge inn vanlig igjen fordi jeg ikke orker
+  // let log_url = TBD
+  let log_data = await fetch(log_url)
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => console.error(error));
+  return log_data;
+}
+
+export async function deleteLog() {
+  // TODO: Sette inn endring av kommentarer / ølstraff antall
+  // let log_url = TBD
+  let log_data = await fetch(log_url)
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => console.error(error));
+  return log_data;
+}

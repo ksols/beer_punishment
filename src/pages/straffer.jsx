@@ -28,7 +28,8 @@ const Straffer = () => {
     const newCategories = Object.keys(sortedDict);
 
     const newValues = Object.values(sortedDict);
-
+    
+    const minimum_value = newValues[newValues.length-1];
     $(document).ready(function () {
       Highcharts.chart("container", {
         chart: {
@@ -45,7 +46,7 @@ const Straffer = () => {
           },
         },
         yAxis: {
-          min: 0,
+          min: minimum_value,
           title: {
             text: "Ølstraffer (antall)",
             align: "high",

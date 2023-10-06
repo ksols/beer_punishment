@@ -79,7 +79,7 @@ const Straffer = () => {
         credits: {
           enabled: false,
         },
-        colors: ["#FFC5E4"],
+        colors: ["#feab00"],
         series: [
           {
             name:

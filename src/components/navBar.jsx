@@ -26,7 +26,7 @@ function BasicExample() {
                 </li>
               </ul>
             </div>
-            <div className="col">
+            {/* <div className="col">
               <ul className="nav">
                 <li className="nav-item">
                   <Link to={"/logg"} className="nav-link">
@@ -34,7 +34,7 @@ function BasicExample() {
                   </Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="col">{/*Må beholdes tom bare for plassering*/}</div>

@@ -94,7 +94,6 @@ const Straffer = () => {
   }
   createData();
   function handleForm(event) {
-    event.preventDefault();
     let form = event.target;
     let navn = form.elements.navn.value;
     let straffer = form.elements.antall1.value;
@@ -134,7 +133,7 @@ const Straffer = () => {
                 </div>
               </div>
               <div className="mb-3">
-                <label className="form-label">Straffer (totalt)</label>
+                <label className="form-label">Endring i straffer:</label>
                 <input
                   type="Number"
                   name="antall1"

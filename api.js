@@ -43,7 +43,7 @@ export async function modyfiDB(key, value) {
   let old_data = await get();
   if (Object.keys(old_data).includes(key)) {
     let my_data = {};
-    my_data[key] = value;
+    my_data[key] = old_data[key] + value;
     await fetch(url_post, {
       method: "POST",
       body: JSON.stringify(my_data),

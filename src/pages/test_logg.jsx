@@ -5,9 +5,9 @@ function List(name) {
   const [editIndex, setEditIndex] = useState(-1);
   const [editValue, setEditValue] = useState("");
   const [log_liste, setLog_liste] = useState([]);
-  console.log("name: ", name);
+  let logData = [];
+  const person_name = name["name"];
   const [items, setItems] = useState([
-
     "item1",
     "item2",
     "item3",
@@ -22,26 +22,27 @@ function List(name) {
         let d = await getLog();
         return d;
       }
-      let logData = await createLogList();
-      console.log("logData", JSON.stringify(logData));
+      logData = await createLogList();
+      
+      setLog_liste(logData[0]["log"]);
       let parset_log_liste = [];
-      for (let x of Object.keys(logData[0])) {
-        if (x != "_id") {
+      for (let log_object_in_list of logData[0]["log"]) {
+        if (Object.keys(log_object_in_list)[0] === person_name) {
           let comment =
-            "" +
-            x +
-            " " +
             " + " +
-            logData[0][x]["number"] +
+            log_object_in_list[person_name]["number"] +
             " for " +
-            logData[0][x]["comment"].toLowerCase();
+            log_object_in_list[person_name]["comment"];
           parset_log_liste.push(comment);
         }
       }
-      setLog_liste(parset_log_liste);
     }
     nested();
   }, []);
+  useEffect(()=>{
+    console.log("Log_liste: ", JSON.stringify(log_liste));
+  },[log_liste]);
+
   const handleDelete = (index) => {
     const newItems = [...items];
     newItems.splice(index, 1);
@@ -54,7 +55,6 @@ function List(name) {
     setItems(newItems);
   };
   const handleEditChange = (event) => {
-    console.log();
     setEditValue(event.target.value);
   };
 
@@ -66,6 +66,12 @@ function List(name) {
   };
 
   const handleDeleteClick = (index) => {
+    console.log("sletter på ", person_name);
+    console.log("index ", index);
+    console.log("Sletter da", JSON.stringify(log_liste[index][person_name]["number"]));
+    log_liste.splice(index, 1);
+    let newRenderList = log_liste;
+    setLog_liste(newRenderList);
     handleDelete(index);
   };
 
@@ -80,40 +86,40 @@ function List(name) {
         <tr>
           <th>#</th>
           <th>Straffe Logg</th>
-          <th>Endre</th>
+          <th>Slett</th>
         </tr>
       </thead>
       <tbody>
-        {log_liste.map((item, index) => (
+      {log_liste.map((item, index) => (
+        Object.keys(item)[0] === person_name && (
+          <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{item[person_name]["number"]} {item[person_name]["comment"]}</td>
+            <td>
+              <Button variant="danger" onClick={() => handleDeleteClick(index)}>
+              <span className={"material-symbols-outlined"}>
+                delete
+              </span>
+              </Button>
+            </td>
+          </tr>
+        )
+      ))}
+
+        {/* Mulig dette taes med senere men uvisst per nå */}
+        {/* {log_liste.map((item, index) => (
           <tr key={index}>
             <td>{index + 1}</td>
             <td>
-              {editIndex === index ? (
-                <form onSubmit={handleEditSubmit}>
-                  <input
-                    type="text"
-                    value={editValue}
-                    onChange={handleEditChange}
-                    className="form-control"
-                  />
-                </form>
-              ) : (
-                item
-              )}
+                {item}
             </td>
             <td>
-              <Button
-                variant="primary"
-                onClick={() => handleEditClick(index, item)}
-              >
-                Edit
-              </Button>{" "}
               <Button variant="danger" onClick={() => handleDeleteClick(index)}>
                 Delete
               </Button>
             </td>
           </tr>
-        ))}
+        ))} */}
       </tbody>
     </Table>
   );

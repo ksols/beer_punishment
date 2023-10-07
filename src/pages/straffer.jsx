@@ -71,7 +71,6 @@ const Straffer = () => {
               click: function (evt) {
                 setSelectedCategory(this.category);
                 setModalVisible(true);
-                console.log("Clicked on bar with category: " + this.category);
                 },
               },
             },

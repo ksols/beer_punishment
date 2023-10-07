@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import { getLog } from "../../api";
-function List() {
+function List(name) {
   const [editIndex, setEditIndex] = useState(-1);
   const [editValue, setEditValue] = useState("");
   const [log_liste, setLog_liste] = useState([]);
+  console.log("name: ", name);
   const [items, setItems] = useState([
+
     "item1",
     "item2",
     "item3",
@@ -21,6 +23,7 @@ function List() {
         return d;
       }
       let logData = await createLogList();
+      console.log("logData", JSON.stringify(logData));
       let parset_log_liste = [];
       for (let x of Object.keys(logData[0])) {
         if (x != "_id") {

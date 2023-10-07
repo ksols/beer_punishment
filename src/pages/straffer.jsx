@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { atom, useAtom } from "jotai";
 import { userAtom } from "./atom";
-import get from "../../api";
+import get, { getLog } from "../../api";
 import { modyfiDB, get_auth } from "../../api";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import List from "./test_logg";
 const Straffer = () => {
   const [user, setUser] = useAtom(userAtom);
   let myDict = {};
   let authDictEmails = {};
   const [authEmails, SetAuthEmails] = useState([]);
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
   useEffect(() => {
     const fetchAuthEmails = async () => {
       // Fetch authEmails asynchronously
@@ -62,6 +66,15 @@ const Straffer = () => {
             dataLabels: {
               enabled: true,
             },
+            point: {
+            events: {
+              click: function (evt) {
+                setSelectedCategory(this.category);
+                setModalVisible(true);
+                console.log("Clicked on bar with category: " + this.category);
+                },
+              },
+            },
           },
         },
         legend: {
@@ -102,6 +115,24 @@ const Straffer = () => {
   }
   return (
     <div>
+      <Modal className=".modal"
+        show={modalVisible}
+        onHide={() => setModalVisible(false)}
+        backdropClassName="custom-backdrop"
+        backdrop={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedCategory}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+    <List name={selectedCategory}></List>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setModalVisible(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div>
         <div>
           {user.given_name

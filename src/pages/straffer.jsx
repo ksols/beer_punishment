@@ -162,6 +162,7 @@ const Straffer = () => {
                 </label>
                 <input
                   type="Name"
+                  required
                   name="navn"
                   className="form-control"
                   id="exampleInputEmail1"
@@ -175,6 +176,7 @@ const Straffer = () => {
                 <label className="form-label">Endring i straffer:</label>
                 <input
                   type="Number"
+                  required
                   name="antall1"
                   className="form-control"
                   id="exampleInputPassword1"
@@ -189,7 +191,7 @@ const Straffer = () => {
                   className="form-control"
                   id="comment_for_log"
                 />
-                <div id="emailHelp" className="form-text">
+                <div id="emailHelp1" className="form-text">
                   Hvorfor man fikk / fjernet straffen (Må med)
                 </div>
               </div>

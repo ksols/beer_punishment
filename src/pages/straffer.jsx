@@ -106,7 +106,6 @@ const Straffer = () => {
   }
   createData();
   async function handleForm(event) {
-    event.preventDefault();
     let form = event.target;
     let navn = form.elements.navn.value;
     let straffer = form.elements.antall1.value;

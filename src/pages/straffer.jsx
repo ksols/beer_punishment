@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { atom, useAtom } from "jotai";
 import { userAtom } from "./atom";
 import get, { getLog } from "../../api";
-import { modyfiDB, get_auth } from "../../api";
+import { modyfiDB, get_auth, addToLog } from "../../api";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import List from "./test_logg";
@@ -104,12 +104,20 @@ const Straffer = () => {
     });
   }
   createData();
-  function handleForm(event) {
+  async function handleForm(event) {
     event.preventDefault();
     let form = event.target;
     let navn = form.elements.navn.value;
     let straffer = form.elements.antall1.value;
+    let kommentar = form.elements.comment.value;
     modyfiDB(navn, Number(straffer));
+    let log_object = {};
+    log_object[navn] = {"number": Number(straffer), "comment": kommentar};
+    let tidligere_log = await getLog();
+    let temp = tidligere_log[0]["log"];
+    let nye_log_object = [...temp];
+    nye_log_object.push(log_object);
+    addToLog({"log": nye_log_object});
     createData();
   }
   return (
@@ -163,13 +171,26 @@ const Straffer = () => {
                 </div>
               </div>
               <div className="mb-3">
-                <label className="form-label">Straffer (totalt)</label>
+                <label className="form-label">Endring i straffer</label>
                 <input
                   type="Number"
                   name="antall1"
                   className="form-control"
                   id="exampleInputPassword1"
                 />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Kommentar</label>
+                <input
+                  type="Name"
+                  required
+                  name="comment"
+                  className="form-control"
+                  id="comment_for_log"
+                />
+                <div id="emailHelp" className="form-text">
+                  Hvorfor man fikk / fjernet straffen (Må med)
+                </div>
               </div>
               <button type="submit" className="btn btn-primary">
                 Submit

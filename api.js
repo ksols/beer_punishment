@@ -71,27 +71,34 @@ export async function getLog() {
   return log_data;
 }
 
-export async function changeLog() {
-  // TODO: Sette inn endring av kommentarer.
-  // Skal man endre antallet må man slette også legge inn vanlig igjen fordi jeg ikke orker
-  // let log_url = TBD
-  let log_data = await fetch(log_url)
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => console.error(error));
-  return log_data;
+export async function deleteLog(payload) {
+  let log_url =
+    "https://eu-central-1.aws.data.mongodb-api.com/app/application-0-ilufl/endpoint/delete_in_log";
+  await fetch(log_url, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  });
 }
 
-export async function deleteLog() {
-  // TODO: Sette inn endring av kommentarer / ølstraff antall
-  // let log_url = TBD
-  let log_data = await fetch(log_url)
-    .then((response) => response.json())
-    .then((data) => {
-      return data;
-    })
-    .catch((error) => console.error(error));
-  return log_data;
+export async function addToLog(payload) {
+  let log_url =
+    "https://eu-central-1.aws.data.mongodb-api.com/app/application-0-ilufl/endpoint/delete_in_log";
+  await fetch(log_url, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  });
 }

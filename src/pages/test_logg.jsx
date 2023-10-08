@@ -48,7 +48,8 @@ function List(name) {
     const amount_to_remove = newRenderList[index][person_name]["number"];
     newRenderList.splice(index, 1);
     deleteLog({"log": newRenderList});
-    modyfiDB(person_name, Number(amount_to_remove));
+    let modded_number = Number(0) - Number(amount_to_remove);
+    modyfiDB(person_name, modded_number);
     setLog_liste(newRenderList);    
   };
 
@@ -74,7 +75,7 @@ function List(name) {
                 delete
               </span>
               </Button>
-            </td>)
+              </td>)
           : <td>Du har ikke tilgang til å slette</td>  
           }
           </tr>

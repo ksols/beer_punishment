@@ -19,18 +19,16 @@ function BasicExample() {
 
             <div className="col">
               <ul className="nav">
-                <li className="nav-item">
-                  <Link to={"/straffer"} className="nav-link">
-                    Straffer
-                  </Link>
+                <li className="nav-item">                  
                 </li>
               </ul>
             </div>
+
             <div className="col">
               <ul className="nav">
                 <li className="nav-item">
-                  <Link to={"/logg"} className="nav-link">
-                    Logg
+                  <Link to={"/straffer"} className="nav-link">
+                    Straffer
                   </Link>
                 </li>
               </ul>

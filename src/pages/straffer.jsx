@@ -119,6 +119,7 @@ const Straffer = () => {
     nye_log_object.push(log_object);
     addToLog({"log": nye_log_object});
     createData();
+    window.location.href = "/straffer";
   }
   return (
     <div>

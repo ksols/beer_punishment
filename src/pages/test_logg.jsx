@@ -43,13 +43,13 @@ function List(name) {
     fetchAuthEmails();
   }, []);
 
-  const handleDeleteClick = (index) => {
+  const handleDeleteClick = async (index) => {
     let newRenderList = [...log_liste];
     const amount_to_remove = newRenderList[index][person_name]["number"];
     newRenderList.splice(index, 1);
-    deleteLog({"log": newRenderList});
+    await deleteLog({"log": newRenderList});
     let modded_number = Number(0) - Number(amount_to_remove);
-    modyfiDB(person_name, modded_number);
+    await modyfiDB(person_name, modded_number);
     setLog_liste(newRenderList);    
   };
 
@@ -57,8 +57,8 @@ function List(name) {
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Straffe Logg</th>
+          <th>Dato</th>
+          <th>Kommentar</th>
           <th>Slett</th>
         </tr>
       </thead>
@@ -66,7 +66,7 @@ function List(name) {
       {log_liste.map((item, index) => (
         Object.keys(item)[0] === person_name && (
           <tr key={index}>
-            <td>{index + 1}</td>
+            <td>{item[person_name]["c_date"]}</td>
             <td>{item[person_name]["number"]} {item[person_name]["comment"]}</td>
             {authEmails.includes(user.email) ? (
             <td>
@@ -75,7 +75,7 @@ function List(name) {
                 delete
               </span>
               </Button>
-              </td>)
+            </td>)
           : <td>Du har ikke tilgang til å slette</td>  
           }
           </tr>

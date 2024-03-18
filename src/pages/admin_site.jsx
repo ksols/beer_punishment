@@ -11,6 +11,8 @@ import { atom, useAtom } from "jotai";
 import { userAtom } from "./atom";
 import { useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import sokrates from "../assets/Socrates_Louvre.jpg";
+import fireball from "../assets/fireball.jpg";
 export default function AdminPage() {
   const [authEmails, setAuthEmails] = useState([]);
   const [user, setUser] = useAtom(userAtom);
@@ -287,7 +289,7 @@ export default function AdminPage() {
             <br />
             vi kan dele og bli kvitt.{" "}
             <img
-              src="src/assets/fireball.jpg"
+              src={fireball}
               onClick={spinningDog}
               style={{
                 borderRadius: "5%", // Makes the image round
@@ -310,7 +312,7 @@ export default function AdminPage() {
                 objectFit: "cover", // Ensures the image covers the area without stretching
                 cursor: "pointer",
               }}
-              src="src/assets/Socrates_Louvre.jpg"
+              src={sokrates}
               alt="Sokrates"
             />
             <br />

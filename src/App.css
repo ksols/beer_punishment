@@ -5,8 +5,11 @@
   text-align: center;
 }
 body {
-  background-color: whitesmoke;
+  background-color: rgb(38, 42, 50);
 }
+/* body {
+  background-color: whitesmoke;
+} */
 .header {
   max-width: 60rem;
   margin: auto;
@@ -121,10 +124,23 @@ body {
   cursor: pointer;
 }
 
-
-.mindusteklasse{
+.mindusteklasse {
   display: none;
 }
 .custom-backdrop {
   background-color: transparent !important; /* Set the backdrop to transparent */
 }
+
+/* myLogin.css */
+.image-container {
+  text-align: center;
+}
+
+.lb-image {
+  width: 300px; /* Set the image width */
+  border-radius: 50%; /* Make the image circular */
+  border: 1px solid #ffffff; /* Add a white border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+}
+
+/* Additional styling can be applied as needed */

@@ -3,8 +3,8 @@ import { atom, useAtom } from "jotai";
 import { userAtom } from "./atom";
 import get, { getLog } from "../../api";
 import { modyfiDB, get_auth, addToLog } from "../../api";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import List from "./test_logg";
 const Straffer = () => {
   const [user, setUser] = useAtom(userAtom);
@@ -12,7 +12,7 @@ const Straffer = () => {
   let authDictEmails = {};
   const [authEmails, SetAuthEmails] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("");
   useEffect(() => {
     const fetchAuthEmails = async () => {
       // Fetch authEmails asynchronously
@@ -22,6 +22,9 @@ const Straffer = () => {
     };
     fetchAuthEmails();
   }, []);
+  function go_to_admin() {
+    window.location = "/admin";
+  }
 
   async function createData() {
     myDict = await get();
@@ -32,9 +35,70 @@ const Straffer = () => {
     const newCategories = Object.keys(sortedDict);
 
     const newValues = Object.values(sortedDict);
-    
-    const minimum_value = newValues[newValues.length-1];
+    const coolDarkTheme = {
+      colors: [
+        "#7cb5ec",
+        "#f7a35c",
+        "#90ee7e",
+        "#7798BF",
+        "#aaeeee",
+        "#ff0066",
+        "#eeaaee",
+        "#55BF3B",
+        "#DF5353",
+        "#7798BF",
+        "#aaeeee",
+      ],
+      xAxis: {
+        labels: {
+          style: {
+            color: "#cccccc", // White color for x-axis labels
+          },
+        },
+      },
+      yAxis: {
+        labels: {
+          style: {
+            color: "#cccccc", // White color for y-axis labels
+          },
+        },
+      },
+      chart: {
+        backgroundColor: "rgb(40, 44, 52)",
+        style: {
+          fontFamily: "Arial, sans-serif",
+          color: "#cccccc",
+        },
+      },
+      title: {
+        style: {
+          color: "#cccccc",
+          fontSize: "18px",
+          fontWeight: "bold",
+          fontFamily: "Arial, sans-serif",
+        },
+      },
+      subtitle: {
+        style: {
+          color: "#cccccc",
+          fontSize: "14px",
+          fontFamily: "Arial, sans-serif",
+        },
+      },
+      legend: {
+        itemStyle: {
+          font: "10pt Arial, sans-serif",
+          color: "#000000",
+        },
+        itemHoverStyle: {
+          color: "#dddddd",
+        },
+      },
+    };
+
+    const minimum_value = newValues[newValues.length - 1];
     $(document).ready(function () {
+      Highcharts.setOptions(coolDarkTheme);
       Highcharts.chart("container", {
         chart: {
           type: "bar",
@@ -67,11 +131,12 @@ const Straffer = () => {
             dataLabels: {
               enabled: true,
             },
+            borderWidth: 0,
             point: {
-            events: {
-              click: function (evt) {
-                setSelectedCategory(this.category);
-                setModalVisible(true);
+              events: {
+                click: function (evt) {
+                  setSelectedCategory(this.category);
+                  setModalVisible(true);
                 },
               },
             },
@@ -82,17 +147,17 @@ const Straffer = () => {
           align: "right",
           verticalAlign: "top",
           x: -40,
-          y: 80,
+          y: 0,
           floating: true,
           borderWidth: 1,
           backgroundColor:
-            Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFF",
+            Highcharts.defaultOptions.legend.backgroundColor || "#EEEEEE",
           shadow: true,
         },
         credits: {
           enabled: false,
         },
-        colors: ["orange"],
+        colors: ["#eb9500"],
         series: [
           {
             name:
@@ -113,18 +178,23 @@ const Straffer = () => {
     let kommentar = form.elements.comment.value;
     await modyfiDB(navn, Number(straffer));
     let log_object = {};
-    log_object[navn] = {"number": Number(straffer), "comment": kommentar, "c_date": new Date().toLocaleDateString() + ""};
+    log_object[navn] = {
+      number: Number(straffer),
+      comment: kommentar,
+      c_date: new Date().toLocaleDateString() + "",
+    };
     let tidligere_log = await getLog();
     let temp = tidligere_log[0]["log"];
     let nye_log_object = [...temp];
     nye_log_object.unshift(log_object);
-    await addToLog({"log": nye_log_object});
+    await addToLog({ log: nye_log_object });
     await createData();
     window.location.href = "/straffer";
   }
   return (
     <div>
-      <Modal className=".modal"
+      <Modal
+        className=".modal"
         show={modalVisible}
         onHide={() => setModalVisible(false)}
         backdropClassName="custom-backdrop"
@@ -134,7 +204,7 @@ const Straffer = () => {
           <Modal.Title>{selectedCategory}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-    <List name={selectedCategory}></List>
+          <List name={selectedCategory}></List>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setModalVisible(false)}>
@@ -143,7 +213,7 @@ const Straffer = () => {
         </Modal.Footer>
       </Modal>
       <div>
-        <div>
+        <div style={{ color: "#cccccc" }}>
           {user.given_name
             ? "Hallais " + user.given_name
             : "Uten login med tilgang får du se, men ikke røre"}
@@ -158,7 +228,7 @@ const Straffer = () => {
             <div className="col"></div>
             <div className="col">
               <div className="mb-3">
-                <label className="form-label">
+                <label className="form-label" style={{ color: "#cccccc" }}>
                   Navn på person (som skrevet over)
                 </label>
                 <input
@@ -169,12 +239,18 @@ const Straffer = () => {
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
                 />
-                <div id="emailHelp" className="form-text">
+                <div
+                  id="emailHelp"
+                  className="form-text"
+                  style={{ color: "#cccccc" }}
+                >
                   Husk stor bokstav på navn
                 </div>
               </div>
               <div className="mb-3">
-                <label className="form-label">Endring i straffer:</label>
+                <label className="form-label" style={{ color: "#cccccc" }}>
+                  Endring i straffer:
+                </label>
                 <input
                   type="Number"
                   required
@@ -184,7 +260,9 @@ const Straffer = () => {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Kommentar</label>
+                <label className="form-label" style={{ color: "#cccccc" }}>
+                  Kommentar
+                </label>
                 <input
                   type="Name"
                   required
@@ -192,7 +270,11 @@ const Straffer = () => {
                   className="form-control"
                   id="comment_for_log"
                 />
-                <div id="emailHelp1" className="form-text">
+                <div
+                  id="emailHelp1"
+                  className="form-text"
+                  style={{ color: "#cccccc" }}
+                >
                   Hvorfor man fikk / fjernet straffen (Må med)
                 </div>
               </div>
@@ -203,7 +285,20 @@ const Straffer = () => {
             <div className="col"></div>
           </div>
         </form>
-        )}
+      )}
+      <br />
+      {authEmails.includes(user.email) && (
+        <Button variant="danger" onClick={go_to_admin}>
+          Admin settings
+          <div
+            id="emailHelp11"
+            className="form-text"
+            style={{ color: "#cccccc" }}
+          >
+            Skummel knapp (Farlig åsånn)
+          </div>
+        </Button>
+      )}
     </div>
   );
 };

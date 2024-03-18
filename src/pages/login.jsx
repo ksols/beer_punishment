@@ -4,6 +4,7 @@ import jwtDecode from "jwt-decode";
 import { atom, useAtom } from "jotai";
 import { userAtom } from "./atom";
 import lbImg from "../assets/lb.jpg";
+import "../App.css";
 
 const myLogin = () => {
   const [user, setUser] = useAtom(userAtom);
@@ -31,8 +32,7 @@ const myLogin = () => {
   }, []);
   return (
     <div className="container">
-      {" "}
-      {/*En container for å sette knappen på midten av login siden*/}
+      {/* Container to center the login button */}
       <div className="row">
         <div className="col"></div>
         <div className="col">
@@ -46,17 +46,30 @@ const myLogin = () => {
       </div>
       <div className="row">
         <div className="col"></div>
-        <div className="col">
-          {/* <img src="assets/lb.jpg" alt="" /> */}
-          <img src={lbImg} alt="" />
-          Den offisielle ølstraff siden åsånn
+        <div className="col image-container">
+          {/* Apply CSS to this container */}
+          <img src={lbImg} alt="" className="lb-image" />
+          <p
+            style={{
+              fontSize: "70px",
+              fontWeight: "600",
+              backgroundImage: "linear-gradient(to right, #000000, #ff0000)", // Gradient from black to red
+              color: "transparent",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              WebkitTextFillColor: "transparent", // Ensures the text fill color is transparent in Webkit browsers
+              display: "inline", // Required for background clip to work properly
+            }}
+          >
+            LaBamba
+          </p>
         </div>
         <div className="col"></div>
       </div>
       <div className="row">
         <div className="col"></div>
         <div className="col">
-          <div id="signInDiv" className="col items-center "></div>
+          {/* <div id="signInDiv" className="col items-center"></div> */}
         </div>
         <div className="col"></div>
       </div>

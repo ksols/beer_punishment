@@ -102,3 +102,64 @@ export async function addToLog(payload) {
     }
   });
 }
+
+export async function deleteAuthUser(payload) {
+  let log_url =
+    "https://eu-central-1.aws.data.mongodb-api.com/app/application-0-ilufl/endpoint/delete_auth_email";
+  await fetch(log_url, {
+    method: "POST",
+    body: payload,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  });
+}
+
+// Need json object
+export async function addAuthUser(payload) {
+  let log_url =
+    "https://eu-central-1.aws.data.mongodb-api.com/app/application-0-ilufl/endpoint/add_auth_email";
+  await fetch(log_url, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  });
+}
+
+export async function changeAdmin(payload) {
+  let log_url =
+    "https://eu-central-1.aws.data.mongodb-api.com/app/application-0-ilufl/endpoint/change_admin";
+  await fetch(log_url, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+  });
+}
+
+export async function getAdmin() {
+  let log_url =
+    "https://eu-central-1.aws.data.mongodb-api.com/app/application-0-ilufl/endpoint/get_admin";
+  let log_data = await fetch(log_url)
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => console.error(error));
+  return log_data;
+}

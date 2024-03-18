@@ -69,7 +69,7 @@ const myLogin = () => {
       <div className="row">
         <div className="col"></div>
         <div className="col">
-          {/* <div id="signInDiv" className="col items-center"></div> */}
+          <div id="signInDiv" className="col items-center"></div>
         </div>
         <div className="col"></div>
       </div>

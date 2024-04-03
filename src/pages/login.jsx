@@ -7,7 +7,6 @@ import "../App.css";
 
 const myLogin = () => {
   const clientId = import.meta.env.VITE_API_CLIENTID;
-  console.log(JSON.stringify(clientId));
   const [user, setUser] = useAtom(userAtom);
   const handleCallbackResponse = (response) => {
     setUser(jwtDecode(response.credential));

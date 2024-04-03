@@ -21,7 +21,7 @@ const myLogin = () => {
   useEffect(() => {
     /*global google*/
     google.accounts.id.initialize({
-      client_id: process.env.REACT_APP_CLIENTID,
+      client_id: variables.clientID,
       callback: handleCallbackResponse,
     });
     google.accounts.id.renderButton(document.getElementById("signInDiv"), {

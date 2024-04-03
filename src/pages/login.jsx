@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import variables from "../variables.json";
 import jwtDecode from "jwt-decode";
 import { atom, useAtom } from "jotai";
 import { userAtom } from "./atom";
@@ -7,6 +6,8 @@ import lbImg from "../assets/lb.jpg";
 import "../App.css";
 
 const myLogin = () => {
+  const clientId = import.meta.env.VITE_API_CLIENTID;
+  console.log(JSON.stringify(clientId));
   const [user, setUser] = useAtom(userAtom);
   const handleCallbackResponse = (response) => {
     setUser(jwtDecode(response.credential));
@@ -21,7 +22,7 @@ const myLogin = () => {
   useEffect(() => {
     /*global google*/
     google.accounts.id.initialize({
-      client_id: variables.clientID,
+      client_id: clientId,
       callback: handleCallbackResponse,
     });
     google.accounts.id.renderButton(document.getElementById("signInDiv"), {

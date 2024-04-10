@@ -49,7 +49,7 @@ body {
   height: 100rem;
 }
 
-.container::after {
+.container1::after {
   content: "";
   background-image: url("./assets/output-onlinepngtools.png");
   background-position: right bottom;

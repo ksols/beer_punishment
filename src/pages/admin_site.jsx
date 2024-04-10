@@ -175,7 +175,7 @@ export default function AdminPage() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <div className="container mt-5">
+      <div className="container1 mt-5">
         <div className="row justify-content-center">
           {admin_state.includes(user.email) && (
             <div className="col-md-6">

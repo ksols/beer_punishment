@@ -53,7 +53,7 @@ const myLogin = () => {
             style={{
               fontSize: "70px",
               fontWeight: "600",
-              backgroundImage: "linear-gradient(to left, #ffffff, #ff0000)", // Gradient from black to red
+              backgroundImage: "linear-gradient(to left, #ffffff, #ffffff)", // Gradient from black to red
               color: "transparent",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",

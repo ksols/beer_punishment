@@ -54,6 +54,7 @@ function List(name) {
   };
 
   return (
+    <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
     <Table striped bordered hover>
       <thead>
         <tr>
@@ -83,6 +84,7 @@ function List(name) {
       ))}
       </tbody>
     </Table>
+    </div>
   );
 }
 
